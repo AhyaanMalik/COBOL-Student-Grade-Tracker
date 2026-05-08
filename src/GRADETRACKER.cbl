@@ -7,7 +7,10 @@
        DATA DIVISION. 
        WORKING-STORAGE SECTION. 
        01 WS-STUDENT-NAME PIC X(30).
-       01 WS-SCORE PIC 999.
+       01 WS-SCORE1 PIC 999.
+       01 WS-SCORE2 PIC 999.
+       01 WS-SCORE3 PIC 999.
+       01 WS-TOTAL-SCORE PIC 999.
 
        PROCEDURE DIVISION.
        MAIN-PARA.
@@ -15,8 +18,14 @@
            DISPLAY '------------'
            DISPLAY 'Enter Student Name: '
            ACCEPT WS-STUDENT-NAME
-           DISPLAY 'Enter Score (0-100): '
-           ACCEPT WS-SCORE
+           DISPLAY 'Enter Score 1 (0-100): '
+           ACCEPT WS-SCORE1
+           DISPLAY 'Enter Score 2 (0-100): '
+           ACCEPT WS-SCORE2
+           DISPLAY 'Enter Score 3 (0-100): '
+           ACCEPT WS-SCORE3
+           ADD WS-SCORE1 TO WS-SCORE2 GIVING WS-TOTAL-SCORE
+           ADD WS-SCORE3 TO WS-TOTAL-SCORE GIVING WS-TOTAL-SCORE
            DISPLAY 'Student: ' WS-STUDENT-NAME
-           DISPLAY 'Score: ' WS-SCORE 
+           DISPLAY 'Total Score: '  WS-TOTAL-SCORE
            STOP RUN.
