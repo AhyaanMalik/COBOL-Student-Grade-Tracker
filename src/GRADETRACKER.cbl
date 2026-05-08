@@ -1,0 +1,14 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. GRADETRACKER.
+       AUTHOR. AHYAAN-MALIK.
+
+       ENVIRONMENT DIVISION. 
+
+       DATA DIVISION. 
+       WORKING-STORAGE SECTION. 
+
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           DISPLAY 'Grade Tracker'
+           STOP RUN.
+           
