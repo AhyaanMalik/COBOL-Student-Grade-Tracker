@@ -32,4 +32,5 @@
            MOVE WS-AVERAGE-SCORE TO WS-AVERAGE-SCORE-DISPLAY
            DISPLAY 'Student: ' WS-STUDENT-NAME
            DISPLAY 'Average Score: '  WS-AVERAGE-SCORE-DISPLAY
+           DISPLAY '------------'
            STOP RUN.
