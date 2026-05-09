@@ -16,6 +16,7 @@
        01 WS-LETTER       PIC X(2).
        01 WS-OUTPUT       PIC X(20).
        01 WS-MESSAGE      PIC X(40).
+       01 WS-CONTINUE     PIC X      VALUE 'Y'.
 
        PROCEDURE DIVISION.
        MAIN-PARA.
@@ -23,31 +24,38 @@
            DISPLAY '          STUDENT GRADE REPORT          '
            DISPLAY '========================================'
 
-           DISPLAY 'Enter Student Name: ' WITH NO ADVANCING 
-           ACCEPT WS-STUDENT
-           DISPLAY 'Enter Score 1 (0-100): ' WITH NO ADVANCING 
-           ACCEPT WS-SCORE1
-           DISPLAY 'Enter Score 2 (0-100): ' WITH NO ADVANCING 
-           ACCEPT WS-SCORE2
-           DISPLAY 'Enter Score 3 (0-100): ' WITH NO ADVANCING 
-           ACCEPT WS-SCORE3
-           PERFORM CALCULATE-SCORE
-           PERFORM DETERMINE-GRADE
+           PERFORM UNTIL WS-CONTINUE NOT = 'Y'
+                   DISPLAY 'Enter Student Name: ' WITH NO ADVANCING
+                   ACCEPT WS-STUDENT
+                   DISPLAY 'Enter Score 1 (0-100): ' WITH NO ADVANCING
+                   ACCEPT WS-SCORE1
+                   DISPLAY 'Enter Score 2 (0-100): ' WITH NO ADVANCING
+                   ACCEPT WS-SCORE2
+                   DISPLAY 'Enter Score 3 (0-100): ' WITH NO ADVANCING
+                   ACCEPT WS-SCORE3
+                   PERFORM CALCULATE-SCORE
+                   PERFORM DETERMINE-GRADE
 
-           STRING FUNCTION TRIM(WS-AVG-DISP)
-                  ' ('
-                  FUNCTION TRIM(WS-LETTER)
-                  ')'
-              DELIMITED BY SIZE INTO WS-OUTPUT
-           
-           DISPLAY ' '
-           DISPLAY 'Results for Student: ' FUNCTION TRIM(WS-STUDENT)
-           DISPLAY '----------------------------------------'
+                   STRING FUNCTION TRIM(WS-AVG-DISP)
+                          ' ('
+                          FUNCTION TRIM(WS-LETTER)
+                          ')'
+                      DELIMITED BY SIZE INTO WS-OUTPUT
 
-           DISPLAY 'Average Score: ' WS-OUTPUT
-           DISPLAY FUNCTION TRIM(WS-MESSAGE)
-           DISPLAY '========================================'
-           DISPLAY ' '
+                   DISPLAY ' '
+                   DISPLAY 'Results for Student: ' FUNCTION TRIM
+                      (WS-STUDENT)
+                   DISPLAY '----------------------------------------'
+
+                   DISPLAY 'Average Score: ' WS-OUTPUT
+                   DISPLAY FUNCTION TRIM(WS-MESSAGE)
+                   DISPLAY '========================================'
+                   DISPLAY ' '
+
+                   DISPLAY 'Enter another student? (Y/N): '
+                      WITH NO ADVANCING
+                   ACCEPT WS-CONTINUE
+           END-PERFORM
            STOP RUN.
 
 
@@ -96,3 +104,4 @@
                 MOVE 'F ' TO WS-LETTER
                 MOVE 'Unsatisfactory - Fail' TO WS-MESSAGE
            END-EVALUATE.
+           
