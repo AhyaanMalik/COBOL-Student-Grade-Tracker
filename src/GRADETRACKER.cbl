@@ -6,28 +6,30 @@
 
        DATA DIVISION. 
        WORKING-STORAGE SECTION. 
-       01 WS-STUDENT-NAME  PIC X(30).
-       01 WS-SCORE1        PIC 999V99.
-       01 WS-SCORE2        PIC 999V99.
-       01 WS-SCORE3        PIC 999V99.
-       01 WS-TOTAL-SCORE   PIC 999V99.
-       01 WS-AVG-SCORE     PIC 999V99.
-       01 WS-AVG-DISP      PIC ZZ9.99.
-       01 WS-LETTER        PIC X(2).
-       01 WS-OUTPUT        PIC X(20).
-       01 WS-MESSAGE       PIC X(40).
+       01 WS-STUDENT      PIC X(30).
+       01 WS-SCORE1       PIC 999V99.
+       01 WS-SCORE2       PIC 999V99.
+       01 WS-SCORE3       PIC 999V99.
+       01 WS-TOTAL-SCORE  PIC 999V99.
+       01 WS-AVG-SCORE    PIC 999V99.
+       01 WS-AVG-DISP     PIC ZZ9.99.
+       01 WS-LETTER       PIC X(2).
+       01 WS-OUTPUT       PIC X(20).
+       01 WS-MESSAGE      PIC X(40).
 
        PROCEDURE DIVISION.
        MAIN-PARA.
-           DISPLAY 'Grade Tracker'
-           DISPLAY '------------'
-           DISPLAY 'Enter Student Name: '
-           ACCEPT WS-STUDENT-NAME
-           DISPLAY 'Enter Score 1 (0-100): '
+           DISPLAY '========================================'
+           DISPLAY '          STUDENT GRADE REPORT          '
+           DISPLAY '========================================'
+
+           DISPLAY 'Enter Student Name: ' WITH NO ADVANCING 
+           ACCEPT WS-STUDENT
+           DISPLAY 'Enter Score 1 (0-100): ' WITH NO ADVANCING 
            ACCEPT WS-SCORE1
-           DISPLAY 'Enter Score 2 (0-100): '
+           DISPLAY 'Enter Score 2 (0-100): ' WITH NO ADVANCING 
            ACCEPT WS-SCORE2
-           DISPLAY 'Enter Score 3 (0-100): '
+           DISPLAY 'Enter Score 3 (0-100): ' WITH NO ADVANCING 
            ACCEPT WS-SCORE3
            PERFORM CALCULATE-SCORE
            PERFORM DETERMINE-GRADE
@@ -38,10 +40,14 @@
                   ')'
               DELIMITED BY SIZE INTO WS-OUTPUT
            
-           DISPLAY 'Student: ' WS-STUDENT-NAME
+           DISPLAY ' '
+           DISPLAY 'Results for Student: ' FUNCTION TRIM(WS-STUDENT)
+           DISPLAY '----------------------------------------'
+
            DISPLAY 'Average Score: ' WS-OUTPUT
-           DISPLAY WS-MESSAGE
-           DISPLAY '------------'
+           DISPLAY FUNCTION TRIM(WS-MESSAGE)
+           DISPLAY '========================================'
+           DISPLAY ' '
            STOP RUN.
 
 
