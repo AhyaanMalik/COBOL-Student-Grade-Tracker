@@ -15,6 +15,7 @@
        01 WS-AVG-DISP      PIC ZZ9.99.
        01 WS-LETTER        PIC X(2).
        01 WS-OUTPUT        PIC X(20).
+       01 WS-MESSAGE       PIC X(40).
 
        PROCEDURE DIVISION.
        MAIN-PARA.
@@ -31,11 +32,15 @@
            PERFORM CALCULATE-SCORE
            PERFORM DETERMINE-GRADE
 
-           STRING WS-AVG-DISP ' (' FUNCTION TRIM(WS-LETTER) ')'
+           STRING FUNCTION TRIM(WS-AVG-DISP)
+                  ' ('
+                  FUNCTION TRIM(WS-LETTER)
+                  ')'
               DELIMITED BY SIZE INTO WS-OUTPUT
            
            DISPLAY 'Student: ' WS-STUDENT-NAME
            DISPLAY 'Average Score: ' WS-OUTPUT
+           DISPLAY WS-MESSAGE
            DISPLAY '------------'
            STOP RUN.
 
@@ -49,28 +54,39 @@
        DETERMINE-GRADE.
            EVALUATE TRUE
            WHEN WS-AVG-SCORE >= 93.0
-                MOVE 'A' TO WS-LETTER
+                MOVE 'A ' TO WS-LETTER
+                MOVE 'Exceptional Mastery of Material' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 90.0
                 MOVE 'A-' TO WS-LETTER
+                MOVE 'Outstanding Performance' TO WS-MESSAGE 
            WHEN WS-AVG-SCORE >= 87.0
                 MOVE 'B+' TO WS-LETTER
+                MOVE 'Very Strong Understanding' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 83.0
-                MOVE 'B' TO WS-LETTER
+                MOVE 'B ' TO WS-LETTER
+                MOVE 'Solid Above Average Work' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 80.0
                 MOVE 'B-' TO WS-LETTER
+                MOVE 'Good Effort - Keep Pushing' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 77.0
                 MOVE 'C+' TO WS-LETTER
+                MOVE 'Above Average Competency' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 73.0
-                MOVE 'C' TO WS-LETTER
+                MOVE 'C ' TO WS-LETTER
+                MOVE 'Satisfactory Basic Completion' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 70.0
                 MOVE 'C-' TO WS-LETTER
+                MOVE 'Warning: Marginal Performance' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 67.0
                 MOVE 'D+' TO WS-LETTER
+                MOVE 'Needs Attention - Below Standard' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 63.0
-                MOVE 'D' TO WS-LETTER
+                MOVE 'D ' TO WS-LETTER
+                MOVE 'Poor Results - Review Required' TO WS-MESSAGE
            WHEN WS-AVG-SCORE >= 60.0
                 MOVE 'D-' TO WS-LETTER
+                MOVE 'Critical Status - Near Failure' TO WS-MESSAGE
            WHEN OTHER
-                MOVE 'F' TO WS-LETTER
+                MOVE 'F ' TO WS-LETTER
+                MOVE 'Unsatisfactory - Fail' TO WS-MESSAGE
            END-EVALUATE.
-           
